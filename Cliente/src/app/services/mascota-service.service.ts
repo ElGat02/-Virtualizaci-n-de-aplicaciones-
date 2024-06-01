@@ -8,7 +8,7 @@ import { Mascota } from '../menu/Mascotas';
 })
 export class MascotaServicioService {
 
-  private apiUrl = 'http://localhost:8080/mascotas/rest/mascotas'; 
+  private apiUrl = 'http://localhost:8080/mascotas/rs/mascotas'; 
 
   constructor(private http: HttpClient) {}
 

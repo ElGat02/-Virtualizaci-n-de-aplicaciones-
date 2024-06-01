@@ -19,7 +19,7 @@ import jakarta.ws.rs.core.Response;
 
 @Path("mascotas")
 public class MascotaServices {
-
+ 
     @Inject
     private GestionMascota ges;
     

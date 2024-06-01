@@ -6,7 +6,7 @@ import org.eclipse.microprofile.openapi.annotations.info.Info;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
-@ApplicationPath("rest")
+//@ApplicationPath("rs")
 /*@OpenAPIDefinition(info = @Info(
         title = "Mascotas API",
         description = "API para gestionar Mascotas", version = "1.0.0"))*/

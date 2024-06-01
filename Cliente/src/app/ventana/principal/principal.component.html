@@ -1,11 +1,12 @@
 <div class="mascotas-container">
-  <div class="mascotas-form">
+  <button (click)="mostrarFormulario = !mostrarFormulario">{{ mostrarFormulario ? 'Ocultar Formulario' : 'Mostrar Formulario' }}</button>
+  <div class="mascotas-form"*ngIf="mostrarFormulario">
     <h1>{{ id ? 'Editar Mascota' : 'Agregar Mascota' }}</h1>
     <form [formGroup]="mascotaForm">
-      <!-- Campo para ingresar el ID -->
-      <div class="form-group" *ngIf="id">
+      <!-- Campo para ingresar el ID, siempre visible y editable -->
+      <div class="form-group">
         <label for="id">ID</label>
-        <input id="id" formControlName="id" type="text" readonly>
+        <input id="id" formControlName="id" type="text">
       </div>
 
       <div class="form-group">
@@ -23,10 +24,7 @@
         <input id="raza" formControlName="raza" type="text">
       </div>
 
-      <div class="form-group">
-        <label for="dueno">Dueno</label>
-        <input id="dueno" formControlName="dueno" type="text">
-      </div>
+      
 
       <div class="buttons">
         <button type="button" (click)="add()">Agregar</button>
@@ -44,7 +42,6 @@
           <th>Nombre</th>
           <th>Especie</th>
           <th>Raza</th>
-          <th>dueno</th>
           
         </tr>
       </thead>
@@ -54,7 +51,6 @@
           <td>{{ mascota.nombre }}</td>
           <td>{{ mascota.especie }}</td>
           <td>{{ mascota.raza }}</td>
-          <td>{{ mascota.dueno }}</td>
           
           <td>
             <button (click)="mascota.id !== undefined && deleteMascota(mascota.id)">Eliminar</button>

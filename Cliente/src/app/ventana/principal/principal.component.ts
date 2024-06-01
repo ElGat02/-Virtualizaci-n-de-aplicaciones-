@@ -16,6 +16,7 @@ export class PrincipalComponent implements OnInit {
   mascotas: Mascota[] = [];
   mascotaForm: FormGroup;
   id?: number; // ID de la mascota para editar
+  mostrarFormulario = false;
 
   constructor(
     private mascotaService: MascotaServicioService, 
@@ -24,12 +25,14 @@ export class PrincipalComponent implements OnInit {
     private router: Router
   ) {
     this.mascotaForm = this.fb.group({
-      id: [{value: '', disabled: false}], // Añade id como un campo deshabilitado si solo quieres mostrarlo
+      id: [''], // No deshabilitado
       nombre: ['', Validators.required],
       especie: ['', Validators.required],
       raza: ['', Validators.required],
-      dueno: ['', Validators.required]
+      
     });
+    
+    
     
   }
 
@@ -63,7 +66,11 @@ export class PrincipalComponent implements OnInit {
 
   add(): void {
     if (this.mascotaForm.valid) {
-      this.mascotaService.addMascota(this.mascotaForm.value).subscribe({
+      let mascotaToAdd = {
+        ...this.mascotaForm.value
+      };
+      delete mascotaToAdd.id;  // Elimina el id para asegurar que no se envíe un valor inválido o vacío
+      this.mascotaService.addMascota(mascotaToAdd).subscribe({
         next: (data) => {
           console.log('Mascota agregada', data);
           this.loadMascotas();
@@ -72,6 +79,7 @@ export class PrincipalComponent implements OnInit {
       });
     }
   }
+  
 
   update(): void {
     console.log('ID:', this.id);  // Verifica si el ID es correcto

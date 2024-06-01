@@ -1,8 +1,7 @@
-version: '16'
 
 services:
   postgres:
-    image: postgres:13
+    image: postgres
     restart: always
     container_name: baseDeDatosMascotas
     hostname: baseDeDatosMascotas
@@ -14,15 +13,15 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data_mascotas:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - datalogger_net
 
   pgadmin:
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@mascotas.com
-      PGADMIN_DEFAULT_PASSWORD: adminpass
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "5050:80"
     depends_on:
@@ -44,8 +43,6 @@ services:
       - JAEGER_AGENT_PORT=6831
       - JAEGER_SAMPLER_TYPE=const
       - JAEGER_SAMPLER_PARAM=1
-      
-      
     ports:
       - "8080:8080"
     depends_on:
@@ -60,7 +57,6 @@ services:
     image: swaggerapi/swagger-ui
     environment:
       SWAGGER_JSON: /api/openapi.yaml
-      
     ports:
       - 8888:8080
     volumes:
@@ -87,14 +83,15 @@ services:
     networks:
       - datalogger_net
     environment:
-      JAEGER_SERVICE_NAME: "demo63"
+      JAEGER_SERVICE_NAME: "demo64"
+     
   
   angular:
     build:
       context: ./Cliente
       dockerfile: Dockerfile
     container_name: angular_mascotas
-    hostname: cliente_mascotas
+    hostname: cliente
     ports:
       - 4200:80
     depends_on:
@@ -103,7 +100,7 @@ services:
       - datalogger_net
 
 volumes:
-  postgres_data_mascotas:
+  postgres_data:
     driver: local
     driver_opts:
       o: bind
